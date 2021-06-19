@@ -2,7 +2,7 @@ on: push
 
 env:
   MY_ENV_VAR: ${{ github.ref }}
-  MY_ENV_VAR2: ${{ github.event.after }}
+  API_URL: ${{ github.event.api_url }}
 
 jobs:
   one:
