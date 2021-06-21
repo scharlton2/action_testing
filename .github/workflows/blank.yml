@@ -3,7 +3,7 @@ on: push
 env:
   MY_ENV_VAR: ${{ github.ref }}
   API_URL: ${{ github.api_url }}
-  BRANCH_NAME: __${{github.repository.name}}-${{github.run_number}}
+  BRANCH_NAME: __${{github.event.repository.name}}-${{github.run_number}}
 
 jobs:
   one:
