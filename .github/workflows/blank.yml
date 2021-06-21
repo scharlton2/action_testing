@@ -32,3 +32,14 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "$MATRIX_CONTEXT"
+        
+      - name: Dump tools
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: |
+          Get-Command cmake
+          Get-Command python
+          Get-Command 7z
+          Get-Command curl
+          
+  
