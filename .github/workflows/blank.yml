@@ -10,6 +10,7 @@ env:
 
 jobs:
   one:
+    if: ${{ github.repository_owner == 'scharlton2' }}
     runs-on: windows-latest
     steps:
       - name: Dump GitHub context
@@ -37,6 +38,11 @@ jobs:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "$MATRIX_CONTEXT"
         
+  two:
+    if: ${{ github.repository_owner == 'i-RIC' }}
+    runs-on: windows-latest
+    steps:
+      - name: Dump GitHub context
       - name: Dump tools
         run: |
           Get-Command cmake
