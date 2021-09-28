@@ -10,7 +10,7 @@ env:
 
 jobs:
   one:
-    if: ${{ github.repository_owner == 'scharlton2' }}
+    if: ${{ github.repository == 'scharlton2/action_testing' }}
     runs-on: windows-latest
     steps:
       - name: Dump GitHub context
@@ -39,7 +39,7 @@ jobs:
         run: echo "$MATRIX_CONTEXT"
         
   two:
-    if: ${{ github.repository_owner == 'i-RIC' }}
+    if: ${{ github.repository != 'scharlton2/action_testing' }}
     runs-on: windows-latest
     steps:
       - name: Dump tools
