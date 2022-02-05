@@ -37,7 +37,17 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "$MATRIX_CONTEXT"
-
+      - name: Dump tools
+        run: |
+          Get-Command cmake
+          Get-Command python
+          Get-Command 7z
+          Get-Command curl
+      - name: Dump env
+        shell: cmd
+        run: |
+          set
+        
   windows-2019:
     if: ${{ github.repository == 'scharlton2/action_testing' }}
     runs-on: windows-2019
@@ -66,6 +76,16 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "$MATRIX_CONTEXT"
+      - name: Dump tools
+        run: |
+          Get-Command cmake
+          Get-Command python
+          Get-Command 7z
+          Get-Command curl
+      - name: Dump env
+        shell: cmd
+        run: |
+          set
         
   windows-2022:
     if: ${{ github.repository == 'scharlton2/action_testing' }}
@@ -95,10 +115,13 @@ jobs:
         env:
           MATRIX_CONTEXT: ${{ toJSON(matrix) }}
         run: echo "$MATRIX_CONTEXT"
-      - name: Dump tools/env
+      - name: Dump tools
         run: |
           Get-Command cmake
           Get-Command python
           Get-Command 7z
           Get-Command curl
-          Get-ChildItem env:
+      - name: Dump env
+        shell: cmd
+        run: |
+          set
