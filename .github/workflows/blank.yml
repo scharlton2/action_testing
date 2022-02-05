@@ -48,6 +48,7 @@ jobs:
           Get-Command python
           Get-Command 7z
           Get-Command curl
+          Get-ChildItem env:
       
           
   
