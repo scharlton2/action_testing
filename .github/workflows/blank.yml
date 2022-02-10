@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: "Say Hello Mona it's Monday"
         run: |
-          echo "$Greeting ${{env.First_Name}}. Today is ${{env.DAY_OF_WEEK!}}"
+          echo "$env:Greeting $env:First_Name}}. Today is $env:DAY_OF_WEEK!"
           echo "First_Name=$env:First_Name" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         env:
           First_Name: ${{ env.DAY_OF_WEEK }}
