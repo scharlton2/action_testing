@@ -10,14 +10,13 @@ env:
 
 jobs:
   windows-2016:
-    env:
-      MY_ENV_VAR_SUB: ${{env.MY_ENV_VAR}}
     if: ${{ github.repository == 'scharlton2/action_testing' }}
     runs-on: windows-2016
     steps:
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
+          USE_MY_ENV_VAR: ${{ env.MY_ENV_VAR }}
         run: echo "$GITHUB_CONTEXT"
       - name: Dump job context
         env:
@@ -51,8 +50,6 @@ jobs:
           set
         
   windows-2019:
-    env:
-      MY_ENV_VAR_SUB: ${{env.MY_ENV_VAR}}
     if: ${{ github.repository == 'scharlton2/action_testing' }}
     runs-on: windows-2019
     steps:
@@ -92,8 +89,6 @@ jobs:
           set
         
   windows-2022:
-    env:
-      MY_ENV_VAR_SUB: ${{env.MY_ENV_VAR}}
     if: ${{ github.repository == 'scharlton2/action_testing' }}
     runs-on: windows-2022
     steps:
