@@ -10,7 +10,7 @@ env:
   DAY_OF_WEEK: Monday
 
 jobs:
-  greeting_job:
+  greeting_windows_job:
     runs-on: windows-2016
     env:
       Greeting: Hello
