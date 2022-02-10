@@ -9,6 +9,27 @@ env:
   BRANCH_NAME: __${{github.event.repository.name}}_${{github.run_number}}
 
 jobs:
+
+  cache-vtk-debug:
+    runs-on: windows-2016
+    
+    steps:
+      env:
+        type: debug
+        zipfile: v${{env.VTK_VERSION}}.zip
+        instdir: C:/VTK-${{env.VTK_VERSION}}-vs2017-x64
+        builddir: C:/VTK-${{env.VTK_VERSION}}-vs2017-x64-build
+        srcdir: C:/VTK-${{env.VTK_VERSION}}
+        
+      - uses: actions/checkout@v2
+
+      - name: Testing
+        shell: pwsh
+        run: |
+          echo "TEST"
+          echo ${{builddir}}
+          
+
   windows-2016:
     if: ${{ github.repository == 'scharlton2/action_testing' }}
     runs-on: windows-2016
