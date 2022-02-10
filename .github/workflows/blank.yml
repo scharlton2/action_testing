@@ -14,12 +14,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       Greeting: Hello
-      DAY: ${{ env.DAY_OF_WEEK }}
     steps:
       - name: "Say Hello Mona it's Monday"
         run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
         env:
-          First_Name: Mona
+          First_Name: ${{ env.DAY_OF_WEEK }}
 
   windows-2016:
     if: ${{ github.repository == 'scharlton2/action_testing' }}
