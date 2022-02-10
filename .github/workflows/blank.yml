@@ -7,24 +7,18 @@ env:
   MY_ENV_VAR: ${{ github.ref }}
   API_URL: ${{ github.api_url }}
   BRANCH_NAME: __${{github.event.repository.name}}_${{github.run_number}}
+  DAY_OF_WEEK: Monday
 
 jobs:
-  cache-vtk-debug:
-    runs-on: windows-2016    
+  greeting_job:
+    runs-on: ubuntu-latest
     env:
-      type: debug
-      zipfile: v${{env.VTK_VERSION}}.zip
-      instdir: C:/VTK-${{env.VTK_VERSION}}-vs2017-x64
-      builddir: C:/VTK-${{env.VTK_VERSION}}-vs2017-x64-build
-      srcdir: C:/VTK-${{env.VTK_VERSION}}
-    steps:        
-      - uses: actions/checkout@v2
-
-      - name: Testing
-        shell: pwsh
-        run: |
-          echo "TEST"
-          echo ${{builddir}}
+      Greeting: Hello
+    steps:
+      - name: "Say Hello Mona it's Monday"
+        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+        env:
+          First_Name: Mona
 
   windows-2016:
     if: ${{ github.repository == 'scharlton2/action_testing' }}
