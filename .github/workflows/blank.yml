@@ -19,6 +19,8 @@ jobs:
         run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
         env:
           First_Name: ${{ env.DAY_OF_WEEK }}
+      - name: "Next step"
+        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
 
   windows-2016:
     if: ${{ github.repository == 'scharlton2/action_testing' }}
