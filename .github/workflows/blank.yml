@@ -35,7 +35,7 @@ jobs:
       - name: list tags
         shell: pwsh
         run: |
-          echo "::group:Notes"
+          echo "::group::Notes"
           echo "actions/checkout@v2 doesn't pull tags"
           echo commitish=${{github.sha}}
           git log -n1 --format=format:"%H"
