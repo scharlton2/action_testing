@@ -21,6 +21,7 @@ jobs:
       - name: force tag
         shell: pwsh
         run: |
+          echo commitish=${{github.sha}}
           git tag -f vtk-6.3.0-vs2017-x64
           git push origin vtk-6.3.0-vs2017-x64
 
@@ -34,8 +35,10 @@ jobs:
       - name: list tags
         shell: pwsh
         run: |
+          echo commitish=${{github.sha}}
+          git log -n1 --format=format:"%H"
           git tag
-          git rev-parse reflog vtk-6.3.0-vs2017-x64
+          git rev-parse vtk-6.3.0-vs2017-x64
 
 
   # cache-vtk-debug:
