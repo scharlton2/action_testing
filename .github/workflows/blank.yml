@@ -23,14 +23,14 @@ jobs:
         run: |
           git tag -f vtk-6.3.0-vs2017-x64
 
-  tag:
+  check-tag:
     runs-on: windows-2016
     needs: [tag]
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: force tag
+      - name: list tags
         shell: pwsh
         run: |
           git tag
