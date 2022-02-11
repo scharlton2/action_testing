@@ -38,7 +38,7 @@ jobs:
           echo commitish=${{github.sha}}
           git log -n1 --format=format:"%H"
           git tag
-          git rev-parse vtk-6.3.0-vs2017-x64
+          git show-ref vtk-6.3.0-vs2017-x64
 
 
   # cache-vtk-debug:
