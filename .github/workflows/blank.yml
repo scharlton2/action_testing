@@ -22,6 +22,7 @@ jobs:
         shell: pwsh
         run: |
           git tag -f vtk-6.3.0-vs2017-x64
+          git push origin vtk-6.3.0-vs2017-x64
 
   check-tag:
     runs-on: windows-2016
