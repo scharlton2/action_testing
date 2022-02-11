@@ -12,178 +12,203 @@ env:
 
 jobs:
 
-  cache-vtk-debug:
-
+  tag:
     runs-on: windows-2016
 
     steps:
-
       - uses: actions/checkout@v2
 
-      - name: Export env
-        env:
-          type:     debug
-          zipfile:  v${{env.VTK_VERSION}}.zip
-          instdir:  C:/VTK-${{env.VTK_VERSION}}-vs2017-x64
-          builddir: C:/VTK-${{env.VTK_VERSION}}-vs2017-x64-build
-          srcdir:   C:/VTK-${{env.VTK_VERSION}}
+      - name: force tag
+        shell: pwsh
         run: |
-          echo "type=$env:type"         | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          echo "zipfile=$env:zipfile"   | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          echo "instdir=$env:instdir"   | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          echo "builddir=$env:builddir" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          echo "srcdir=$env:srcdir"     | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          git tag -f vtk-6.3.0-vs2017-x64
 
-      - name: test
-        run: |
-          echo "type=$env:type"
-          echo "zipfile=$env:zipfile"
-          echo "instdir=$env:instdir"
-          echo "builddir=$env:builddir"
-          echo "srcdir=$env:srcdir"
-
-
-  greeting_windows_job:
+  tag:
     runs-on: windows-2016
-    env:
-      Greeting: Hello
+    needs: [tag]
+
     steps:
-      - name: "Say Hello Mona it's Monday"
+      - uses: actions/checkout@v2
+
+      - name: force tag
+        shell: pwsh
         run: |
-          echo "$env:Greeting $env:First_Name}}. Today is $env:DAY_OF_WEEK!"
-          echo "First_Name=$env:First_Name" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-        env:
-          First_Name: ${{ env.DAY_OF_WEEK }}
-      - name: "Next step"
-        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+          git tag
+          git rev-parse reflog vtk-6.3.0-vs2017-x64
 
 
-  greeting_job:
-    runs-on: ubuntu-latest
-    env:
-      Greeting: Hello
-    steps:
-      - name: "Say Hello Mona it's Monday"
-        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
-        env:
-          First_Name: ${{ env.DAY_OF_WEEK }}
-      - name: "Next step"
-        run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+  # cache-vtk-debug:
 
-  windows-2016:
-    if: ${{ github.repository == 'scharlton2/action_testing' }}
-    runs-on: windows-2016
-    steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-          USE_MY_ENV_VAR: ${{ env.MY_ENV_VAR }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
-      - name: Dump tools
-        run: |
-          Get-Command cmake
-          Get-Command python
-          Get-Command 7z
-          Get-Command curl
-      - name: Dump env
-        shell: cmd
-        run: |
-          set
+  #   runs-on: windows-2016
+
+  #   steps:
+
+  #     - uses: actions/checkout@v2
+
+  #     - name: Export env
+  #       env:
+  #         type:     debug
+  #         zipfile:  v${{env.VTK_VERSION}}.zip
+  #         instdir:  C:/VTK-${{env.VTK_VERSION}}-vs2017-x64
+  #         builddir: C:/VTK-${{env.VTK_VERSION}}-vs2017-x64-build
+  #         srcdir:   C:/VTK-${{env.VTK_VERSION}}
+  #       run: |
+  #         echo "type=$env:type"         | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+  #         echo "zipfile=$env:zipfile"   | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+  #         echo "instdir=$env:instdir"   | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+  #         echo "builddir=$env:builddir" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+  #         echo "srcdir=$env:srcdir"     | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+  #     - name: test
+  #       run: |
+  #         echo "type=$env:type"
+  #         echo "zipfile=$env:zipfile"
+  #         echo "instdir=$env:instdir"
+  #         echo "builddir=$env:builddir"
+  #         echo "srcdir=$env:srcdir"
+
+
+  # greeting_windows_job:
+  #   runs-on: windows-2016
+  #   env:
+  #     Greeting: Hello
+  #   steps:
+  #     - name: "Say Hello Mona it's Monday"
+  #       run: |
+  #         echo "$env:Greeting $env:First_Name}}. Today is $env:DAY_OF_WEEK!"
+  #         echo "First_Name=$env:First_Name" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+  #       env:
+  #         First_Name: ${{ env.DAY_OF_WEEK }}
+  #     - name: "Next step"
+  #       run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+
+
+  # greeting_job:
+  #   runs-on: ubuntu-latest
+  #   env:
+  #     Greeting: Hello
+  #   steps:
+  #     - name: "Say Hello Mona it's Monday"
+  #       run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+  #       env:
+  #         First_Name: ${{ env.DAY_OF_WEEK }}
+  #     - name: "Next step"
+  #       run: echo "$Greeting $First_Name. Today is $DAY_OF_WEEK!"
+
+  # windows-2016:
+  #   if: ${{ github.repository == 'scharlton2/action_testing' }}
+  #   runs-on: windows-2016
+  #   steps:
+  #     - name: Dump GitHub context
+  #       env:
+  #         GITHUB_CONTEXT: ${{ toJSON(github) }}
+  #         USE_MY_ENV_VAR: ${{ env.MY_ENV_VAR }}
+  #       run: echo "$GITHUB_CONTEXT"
+  #     - name: Dump job context
+  #       env:
+  #         JOB_CONTEXT: ${{ toJSON(job) }}
+  #       run: echo "$JOB_CONTEXT"
+  #     - name: Dump steps context
+  #       env:
+  #         STEPS_CONTEXT: ${{ toJSON(steps) }}
+  #       run: echo "$STEPS_CONTEXT"
+  #     - name: Dump runner context
+  #       env:
+  #         RUNNER_CONTEXT: ${{ toJSON(runner) }}
+  #       run: echo "$RUNNER_CONTEXT"
+  #     - name: Dump strategy context
+  #       env:
+  #         STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+  #       run: echo "$STRATEGY_CONTEXT"
+  #     - name: Dump matrix context
+  #       env:
+  #         MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+  #       run: echo "$MATRIX_CONTEXT"
+  #     - name: Dump tools
+  #       run: |
+  #         Get-Command cmake
+  #         Get-Command python
+  #         Get-Command 7z
+  #         Get-Command curl
+  #     - name: Dump env
+  #       shell: cmd
+  #       run: |
+  #         set
         
-  windows-2019:
-    if: ${{ github.repository == 'scharlton2/action_testing' }}
-    runs-on: windows-2019
-    steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
-      - name: Dump tools
-        run: |
-          Get-Command cmake
-          Get-Command python
-          Get-Command 7z
-          Get-Command curl
-      - name: Dump env
-        shell: cmd
-        run: |
-          set
+  # windows-2019:
+  #   if: ${{ github.repository == 'scharlton2/action_testing' }}
+  #   runs-on: windows-2019
+  #   steps:
+  #     - name: Dump GitHub context
+  #       env:
+  #         GITHUB_CONTEXT: ${{ toJSON(github) }}
+  #       run: echo "$GITHUB_CONTEXT"
+  #     - name: Dump job context
+  #       env:
+  #         JOB_CONTEXT: ${{ toJSON(job) }}
+  #       run: echo "$JOB_CONTEXT"
+  #     - name: Dump steps context
+  #       env:
+  #         STEPS_CONTEXT: ${{ toJSON(steps) }}
+  #       run: echo "$STEPS_CONTEXT"
+  #     - name: Dump runner context
+  #       env:
+  #         RUNNER_CONTEXT: ${{ toJSON(runner) }}
+  #       run: echo "$RUNNER_CONTEXT"
+  #     - name: Dump strategy context
+  #       env:
+  #         STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+  #       run: echo "$STRATEGY_CONTEXT"
+  #     - name: Dump matrix context
+  #       env:
+  #         MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+  #       run: echo "$MATRIX_CONTEXT"
+  #     - name: Dump tools
+  #       run: |
+  #         Get-Command cmake
+  #         Get-Command python
+  #         Get-Command 7z
+  #         Get-Command curl
+  #     - name: Dump env
+  #       shell: cmd
+  #       run: |
+  #         set
         
-  windows-2022:
-    if: ${{ github.repository == 'scharlton2/action_testing' }}
-    runs-on: windows-2022
-    steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
-      - name: Dump tools
-        run: |
-          Get-Command cmake
-          Get-Command python
-          Get-Command 7z
-          Get-Command curl
-      - name: Dump env
-        shell: cmd
-        run: |
-          set
+  # windows-2022:
+  #   if: ${{ github.repository == 'scharlton2/action_testing' }}
+  #   runs-on: windows-2022
+  #   steps:
+  #     - name: Dump GitHub context
+  #       env:
+  #         GITHUB_CONTEXT: ${{ toJSON(github) }}
+  #       run: echo "$GITHUB_CONTEXT"
+  #     - name: Dump job context
+  #       env:
+  #         JOB_CONTEXT: ${{ toJSON(job) }}
+  #       run: echo "$JOB_CONTEXT"
+  #     - name: Dump steps context
+  #       env:
+  #         STEPS_CONTEXT: ${{ toJSON(steps) }}
+  #       run: echo "$STEPS_CONTEXT"
+  #     - name: Dump runner context
+  #       env:
+  #         RUNNER_CONTEXT: ${{ toJSON(runner) }}
+  #       run: echo "$RUNNER_CONTEXT"
+  #     - name: Dump strategy context
+  #       env:
+  #         STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+  #       run: echo "$STRATEGY_CONTEXT"
+  #     - name: Dump matrix context
+  #       env:
+  #         MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+  #       run: echo "$MATRIX_CONTEXT"
+  #     - name: Dump tools
+  #       run: |
+  #         Get-Command cmake
+  #         Get-Command python
+  #         Get-Command 7z
+  #         Get-Command curl
+  #     - name: Dump env
+  #       shell: cmd
+  #       run: |
+  #         set
