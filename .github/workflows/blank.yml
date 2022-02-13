@@ -156,16 +156,18 @@ jobs:
           echo "github.ref_type=${{env.ref_tGITHUB_REF_TYPEype}}"
 
       - name: Testing if
-        if: ${{ env.GITHUB_REF_NAME == 'main' }}
+        if: ${{ env.GITHUB_REF_NAME }} == 'main'
         shell: pwsh
         run: |
           echo "this is the main branch"
+          echo "env.GITHUB_REF_NAME=${{ env.GITHUB_REF_NAME }}"
 
       - name: Testing not if
-        if: ${{ env.GITHUB_REF_NAME != 'main' }}
+        if: ${{ env.GITHUB_REF_NAME }} != 'main'
         shell: pwsh
         run: |
           echo "this is NOT the main branch"
+          echo "env.GITHUB_REF_NAME=${{ env.GITHUB_REF_NAME }}"
 
       - name: Dump GitHub context
         env:
