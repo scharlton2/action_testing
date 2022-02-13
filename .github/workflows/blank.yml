@@ -1,3 +1,5 @@
+name: tester
+
 on: 
   push:
   # Allows you to run this workflow manually from the Actions tab
@@ -21,6 +23,7 @@ jobs:
       - name: force tag
         shell: pwsh
         run: |
+          echo build=${{github.run_number}}
           echo commitish=${{github.sha}}
           git tag -f vtk-6.3.0-vs2017-x64
           git push -f origin vtk-6.3.0-vs2017-x64
