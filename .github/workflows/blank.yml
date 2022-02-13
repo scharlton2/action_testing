@@ -204,19 +204,19 @@ jobs:
           echo "env:GITHUB_REF_NAME=$env:GITHUB_REF_NAME"
 
       - name: Testing if 4
-        if: github.refname == 'main'
+        if: github.ref_name == 'main'
         shell: pwsh
         run: |
           echo "this is the main branch"
-          echo "github.refname=${{ github.refname }}"
+          echo "github.ref_name=${{ github.ref_name }}"
           echo "env:GITHUB_REF_NAME=$env:GITHUB_REF_NAME"
 
       - name: Testing not if 4
-        if: github.refname != 'main'
+        if: github.ref_name != 'main'
         shell: pwsh
         run: |
           echo "this is NOT the main branch"
-          echo "github.refname=${{ github.refname }}"
+          echo "github.ref_name=${{ github.ref_name }}"
           echo "env:GITHUB_REF_NAME=$env:GITHUB_REF_NAME"
 
       - name: Dump GitHub context
