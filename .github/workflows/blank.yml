@@ -219,6 +219,22 @@ jobs:
           echo "github.ref_name=${{ github.ref_name }}"
           echo "env:GITHUB_REF_NAME=$env:GITHUB_REF_NAME"
 
+      - name: Testing if 5
+        if: github.ref_name == 'main' && github.ref_name == 'branch'
+        shell: pwsh
+        run: |
+          echo "this is the main branch"
+          echo "github.ref_name=${{ github.ref_name }}"
+          echo "github.ref_type=${{ github.ref_type }}"
+
+      - name: Testing not if 5
+        if: github.ref_name != 'main' || github.ref_type != 'branch'
+        shell: pwsh
+        run: |
+          echo "this is NOT the main branch"
+          echo "github.ref_name=${{ github.ref_name }}"
+          echo "github.ref_type=${{ github.ref_type }}"
+
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
