@@ -222,7 +222,7 @@ jobs:
           echo "env:GITHUB_REF_NAME=$env:GITHUB_REF_NAME"
 
       - name: Testing if main and branch 5
-        if: (github.ref_name == 'main' && github.ref_name == 'branch')
+        if: (github.ref_name == 'main' && github.ref_type == 'branch')
         shell: pwsh
         run: |
           echo "this is the main branch"
@@ -230,7 +230,7 @@ jobs:
           echo "github.ref_type=${{ github.ref_type }}"
 
       - name: Testing if not(main and branch) 5
-        if: (! (github.ref_name == 'main' && github.ref_name == 'branch'))
+        if: (! (github.ref_name == 'main' && github.ref_type == 'branch'))
         shell: pwsh
         run: |
           echo "this is NOT the main branch"
