@@ -145,44 +145,62 @@ jobs:
   #       run: |
   #         set
         
-  # windows-2019:
-  #   if: ${{ github.repository == 'scharlton2/action_testing' }}
-  #   runs-on: windows-2019
-  #   steps:
-  #     - name: Dump GitHub context
-  #       env:
-  #         GITHUB_CONTEXT: ${{ toJSON(github) }}
-  #       run: echo "$GITHUB_CONTEXT"
-  #     - name: Dump job context
-  #       env:
-  #         JOB_CONTEXT: ${{ toJSON(job) }}
-  #       run: echo "$JOB_CONTEXT"
-  #     - name: Dump steps context
-  #       env:
-  #         STEPS_CONTEXT: ${{ toJSON(steps) }}
-  #       run: echo "$STEPS_CONTEXT"
-  #     - name: Dump runner context
-  #       env:
-  #         RUNNER_CONTEXT: ${{ toJSON(runner) }}
-  #       run: echo "$RUNNER_CONTEXT"
-  #     - name: Dump strategy context
-  #       env:
-  #         STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-  #       run: echo "$STRATEGY_CONTEXT"
-  #     - name: Dump matrix context
-  #       env:
-  #         MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-  #       run: echo "$MATRIX_CONTEXT"
-  #     - name: Dump tools
-  #       run: |
-  #         Get-Command cmake
-  #         Get-Command python
-  #         Get-Command 7z
-  #         Get-Command curl
-  #     - name: Dump env
-  #       shell: cmd
-  #       run: |
-  #         set
+  windows-2019:
+    if: ${{ github.repository == 'scharlton2/action_testing' }}
+    runs-on: windows-2019
+    steps:
+      - name: Testing
+        shell: pwsh
+        run: |
+          echo "github.ref_name=${{env.GITHUB_REF_NAME}}"
+          echo "github.ref_type=${{env.ref_tGITHUB_REF_TYPEype}}"
+
+      - name: Testing if
+        if: ${{ env.GITHUB_REF_NAME == 'main' }}
+        shell: pwsh
+        run: |
+          echo "this is the main branch"
+
+      - name: Testing not if
+        if: ${{ env.GITHUB_REF_NAME != 'main' }}
+        shell: pwsh
+        run: |
+          echo "this is NOT the main branch"
+
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
+      - name: Dump tools
+        run: |
+          Get-Command cmake
+          Get-Command python
+          Get-Command 7z
+          Get-Command curl
+      - name: Dump env
+        shell: cmd
+        run: |
+          set
         
   # windows-2022:
   #   if: ${{ github.repository == 'scharlton2/action_testing' }}
