@@ -187,6 +187,22 @@ jobs:
           echo "env.GITHUB_REF_NAME=${{ env.GITHUB_REF_NAME }}"
           echo "env:GITHUB_REF_NAME=$env:GITHUB_REF_NAME"
 
+      - name: Testing if 3
+        if: env.GITHUB_REF_NAME == 'main'
+        shell: pwsh
+        run: |
+          echo "this is the main branch"
+          echo "env.GITHUB_REF_NAME=${{ env.GITHUB_REF_NAME }}"
+          echo "env:GITHUB_REF_NAME=$env:GITHUB_REF_NAME"
+
+      - name: Testing not if 3
+        if: env.GITHUB_REF_NAME != 'main'
+        shell: pwsh
+        run: |
+          echo "this is NOT the main branch"
+          echo "env.GITHUB_REF_NAME=${{ env.GITHUB_REF_NAME }}"
+          echo "env:GITHUB_REF_NAME=$env:GITHUB_REF_NAME"
+
       - name: Dump GitHub context
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
