@@ -12,12 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache Qt
-        id: cache-qt
-        uses: actions/cache@v1  # not v2!
-        with:
-          path: ../Qt
-          key: ${{ runner.os }}-QtCache      
+      # - name: Cache Qt
+      #   id: cache-qt
+      #   uses: actions/cache@v1  # not v2!
+      #   with:
+      #     path: ../Qt
+      #     key: ${{ runner.os }}-QtCache      
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v2    
@@ -25,12 +25,14 @@ jobs:
           arch: win64_msvc2013_64
           tools-only: true
           tools: tools_ifw
-          cached: ${{ steps.cache-qt.outputs.cache-hit }}
+          # cached: ${{ steps.cache-qt.outputs.cache-hit }}
 
       - name: Testing
         shell: pwsh
         run: |
           dir
-          dir c:\
-          dir d:\
+          dir C:\
+          dir D:\
           dir $RUNNER_WORKSPACE
+          dir D:\a\action_testing
+          dir D:\a
