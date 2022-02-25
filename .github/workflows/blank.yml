@@ -24,6 +24,7 @@ jobs:
         with: 
           arch: win64_msvc2013_64
           tools-only: true
+          tools: tools_ifw
           cached: ${{ steps.cache-qt.outputs.cache-hit }}
 
       - name: Testing
