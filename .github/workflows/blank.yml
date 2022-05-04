@@ -14,37 +14,37 @@ env:
 
 jobs:
 
-  tag:
-    runs-on: windows-2016
+  # tag:
+  #   runs-on: windows-2016
 
-    steps:
-      - uses: actions/checkout@v2
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      - name: force tag
-        shell: pwsh
-        run: |
-          echo build=${{github.run_number}}
-          echo commitish=${{github.sha}}
-          git tag -f vtk-6.3.0-vs2017-x64
-          git push -f origin vtk-6.3.0-vs2017-x64
+  #     - name: force tag
+  #       shell: pwsh
+  #       run: |
+  #         echo build=${{github.run_number}}
+  #         echo commitish=${{github.sha}}
+  #         git tag -f vtk-6.3.0-vs2017-x64
+  #         git push -f origin vtk-6.3.0-vs2017-x64
 
-  check-tag:
-    runs-on: windows-2016
-    needs: [tag]
+  # check-tag:
+  #   runs-on: windows-2016
+  #   needs: [tag]
 
-    steps:
-      - uses: actions/checkout@v2
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      - name: list tags
-        shell: pwsh
-        run: |
-          echo "::group::Notes"
-          echo "actions/checkout@v2 doesn't pull tags"
-          echo commitish=${{github.sha}}
-          git log -n1 --format=format:"%H"
-          git remote -v
-          git ls-remote --tags origin
-          echo "::endgroup::"
+  #     - name: list tags
+  #       shell: pwsh
+  #       run: |
+  #         echo "::group::Notes"
+  #         echo "actions/checkout@v2 doesn't pull tags"
+  #         echo commitish=${{github.sha}}
+  #         git log -n1 --format=format:"%H"
+  #         git remote -v
+  #         git ls-remote --tags origin
+  #         echo "::endgroup::"
 
 
   # cache-vtk-debug:
@@ -272,41 +272,41 @@ jobs:
         run: |
           set
         
-  # windows-2022:
-  #   if: ${{ github.repository == 'scharlton2/action_testing' }}
-  #   runs-on: windows-2022
-  #   steps:
-  #     - name: Dump GitHub context
-  #       env:
-  #         GITHUB_CONTEXT: ${{ toJSON(github) }}
-  #       run: echo "$GITHUB_CONTEXT"
-  #     - name: Dump job context
-  #       env:
-  #         JOB_CONTEXT: ${{ toJSON(job) }}
-  #       run: echo "$JOB_CONTEXT"
-  #     - name: Dump steps context
-  #       env:
-  #         STEPS_CONTEXT: ${{ toJSON(steps) }}
-  #       run: echo "$STEPS_CONTEXT"
-  #     - name: Dump runner context
-  #       env:
-  #         RUNNER_CONTEXT: ${{ toJSON(runner) }}
-  #       run: echo "$RUNNER_CONTEXT"
-  #     - name: Dump strategy context
-  #       env:
-  #         STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-  #       run: echo "$STRATEGY_CONTEXT"
-  #     - name: Dump matrix context
-  #       env:
-  #         MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-  #       run: echo "$MATRIX_CONTEXT"
-  #     - name: Dump tools
-  #       run: |
-  #         Get-Command cmake
-  #         Get-Command python
-  #         Get-Command 7z
-  #         Get-Command curl
-  #     - name: Dump env
-  #       shell: cmd
-  #       run: |
-  #         set
+  windows-2022:
+    if: ${{ github.repository == 'scharlton2/action_testing' }}
+    runs-on: windows-2022
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJSON(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJSON(steps) }}
+        run: echo "$STEPS_CONTEXT"
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJSON(runner) }}
+        run: echo "$RUNNER_CONTEXT"
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
+        run: echo "$STRATEGY_CONTEXT"
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
+        run: echo "$MATRIX_CONTEXT"
+      - name: Dump tools
+        run: |
+          Get-Command cmake
+          Get-Command python
+          Get-Command 7z
+          Get-Command curl
+      - name: Dump env
+        shell: cmd
+        run: |
+          set
