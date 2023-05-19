@@ -150,6 +150,22 @@ jobs:
     runs-on: windows-2019
     steps:
 
+      - name: Print env
+        shell: cmd
+        run: |
+          set
+
+      - name: Print env
+        shell: pwsh
+        run: |
+          dir env:
+
+      - name: Print env
+        shell: bash
+        run: |
+          printenv
+
+
       - name: Testing not main
         if: env.GITHUB_REF_NAME != 'main'
         run: |
