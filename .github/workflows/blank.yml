@@ -165,6 +165,15 @@ jobs:
         run: |
           printenv
 
+      - name: Testing main 0
+        if: ${{ env.GITHUB_REF_NAME }} == 'main'
+        run: |
+          echo "this is the main branch"
+
+      - name: Testing not main 0
+        if: ${{ env.GITHUB_REF_NAME }} != 'main'
+        run: |
+          echo "this is NOT the main branch"
 
       - name: Testing not main
         if: env.GITHUB_REF_NAME != 'main'
