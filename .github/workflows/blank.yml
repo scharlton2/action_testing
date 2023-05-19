@@ -180,6 +180,16 @@ jobs:
         run: |
           echo "this is the main branch AND false with brackets"
 
+      - name: Testing if main and true with parens
+        if: (env.GITHUB_REF_NAME == 'main' && true)
+        run: |
+          echo "this is the main branch AND true with parens"
+
+      - name: Testing if main and false with parens
+        if: (env.GITHUB_REF_NAME == 'main' && false)
+        run: |
+          echo "this is the main branch AND false with parens"
+
       - name: Testing
         shell: pwsh
         run: |
