@@ -170,6 +170,16 @@ jobs:
         run: |
           echo "this is the main branch AND false"
 
+      - name: Testing if main and true with brackets
+        if: ${{ env.GITHUB_REF_NAME == 'main' && true }}
+        run: |
+          echo "this is the main branch AND true with brackets"
+
+      - name: Testing if main and false with brackets
+        if: ${{ env.GITHUB_REF_NAME == 'main' && false }}
+        run: |
+          echo "this is the main branch AND false with brackets"
+
       - name: Testing
         shell: pwsh
         run: |
