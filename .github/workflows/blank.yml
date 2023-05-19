@@ -149,6 +149,27 @@ jobs:
     if: ${{ github.repository == 'scharlton2/action_testing' }}
     runs-on: windows-2019
     steps:
+
+      - name: Testing not main
+        if: env.GITHUB_REF_NAME != 'main'
+        run: |
+          echo "this is NOT the main branch"
+
+      - name: Testing if main
+        if: env.GITHUB_REF_NAME == 'main'
+        run: |
+          echo "this is the main branch"
+
+      - name: Testing if main and true
+        if: env.GITHUB_REF_NAME == 'main' && true
+        run: |
+          echo "this is the main branch AND true"
+
+      - name: Testing if main and false
+        if: env.GITHUB_REF_NAME == 'main' && false
+        run: |
+          echo "this is the main branch AND false"
+
       - name: Testing
         shell: pwsh
         run: |
