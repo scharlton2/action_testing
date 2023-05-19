@@ -195,25 +195,25 @@ jobs:
         run: |
           echo "this is NOT the main branch"
 
-      - name: Testing main 0000
-        if: ${{ env.GITHUB_REF_NAME == main }}
-        run: |
-          echo "this is the main branch"
+      # - name: Testing main 0000
+      #   if: ${{ env.GITHUB_REF_NAME == main }}
+      #   run: |
+      #     echo "this is the main branch"
 
-      - name: Testing not main 0000
-        if: ${{ env.GITHUB_REF_NAME != main }}
-        run: |
-          echo "this is NOT the main branch"
+      # - name: Testing not main 0000
+      #   if: ${{ env.GITHUB_REF_NAME != main }}
+      #   run: |
+      #     echo "this is NOT the main branch"
 
-      - name: Testing main 00000
-        if: env.GITHUB_REF_NAME == main
-        run: |
-          echo "this is the main branch"
+      # - name: Testing main 00000
+      #   if: env.GITHUB_REF_NAME == main
+      #   run: |
+      #     echo "this is the main branch"
 
-      - name: Testing not main 00000
-        if: env.GITHUB_REF_NAME != main
-        run: |
-          echo "this is NOT the main branch"
+      # - name: Testing not main 00000
+      #   if: env.GITHUB_REF_NAME != main
+      #   run: |
+      #     echo "this is NOT the main branch"
 
 
       - name: Testing not main
