@@ -429,4 +429,4 @@ jobs:
 
       - name: check tar
         shell: pwsh
-        run: dir "C:/Program Files/Git/usr/bin/tar.exe"
+        run: Get-FileHash "C:/Program Files/Git/usr/bin/tar.exe"
