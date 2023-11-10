@@ -429,4 +429,4 @@ jobs:
 
       - name: check tar
         shell: pwsh
-        run: "C:/Program Files/Git/usr/bin/tar.exe" --version
+        run: dir "C:/Program Files/Git/usr/bin/tar.exe"
