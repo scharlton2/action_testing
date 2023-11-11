@@ -448,7 +448,7 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          REG DELETE $env:INTEL_KEY
+          REG DELETE $env:INTEL_KEY /f /reg:64
 
       - name: Restore Intel hive
         if: runner.os == 'Windows'
