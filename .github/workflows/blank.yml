@@ -430,3 +430,14 @@ jobs:
       - name: check tar
         shell: pwsh
         run: Get-FileHash "C:/Program Files/Git/usr/bin/tar.exe"
+
+      - name: check Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Classes
+        shell: pwsh
+        run: |
+          if (Test-Path -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Classes") {
+            Write-host -f Green "Classes exists!"
+          } else {
+            Write-host -f Red "Classes is missing!"
+          }
+          Get-Command reg
+          reg /?
