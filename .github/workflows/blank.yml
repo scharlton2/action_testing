@@ -431,13 +431,30 @@ jobs:
         shell: pwsh
         run: Get-FileHash "C:/Program Files/Git/usr/bin/tar.exe"
 
-      - name: check Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Classes
+      - name: Set Intel key
+        id: intel-key
+        if: runner.os == 'Windows'
+        shell: bash
+        run: echo "INTEL_KEY=HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Clients" >> "$GITHUB_ENV"
+
+      - name: Store Intel hive
+        if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          if (Test-Path -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Classes") {
-            Write-host -f Green "Classes exists!"
-          } else {
-            Write-host -f Red "Classes is missing!"
+          REG SAVE $env:INTEL_KEY Intel.hiv /reg:64
+          Get-FileHash Intel.hiv
+
+      - name: Delete Intel key
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          REG DELETE $env:INTEL_KEY
+
+      - name: Restore Intel hive
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          if (-Not (Test-Path -Path "Registry::$env:INTEL_KEY")) {
+            REG ADD "$env:INTEL_KEY"
           }
-          Get-Command reg
-          reg /?
+          REG RESTORE $env:INTEL_KEY Intel.hiv /reg:64
