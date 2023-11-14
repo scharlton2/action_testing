@@ -422,6 +422,10 @@ jobs:
     runs-on: windows-2019
     steps:
 
+      - name: check for Microsoft Defender Antivirus Service
+        shell: pwsh
+        run: Get-Service -Name windefend
+
       - name: Print env
         shell: cmd
         run: |
