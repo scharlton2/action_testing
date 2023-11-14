@@ -426,6 +426,18 @@ jobs:
         shell: pwsh
         run: Get-Service -Name windefend
 
+      - name: show defender settings
+        shell: pwsh
+        run: Get-MpPreference
+
+      - name: disable realtime monitoring
+        shell: pwsh
+        run: Set-MpPreference -DisableRealtimeMonitoring $true
+
+      - name: show defender settings
+        shell: pwsh
+        run: Get-MpPreference
+
       - name: Print env
         shell: cmd
         run: |
